@@ -1,0 +1,63 @@
+<template>
+<div>
+<h1>Login</h1>
+  
+   <div class="row">
+    <div class="col-sm-8">
+      <div class="card">
+        <div class="card-body">
+
+          <!-- Makes POST request to /login route -->
+          <form action="/login" method="POST">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" name="username">
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" class="form-control" name="password">
+            </div>
+            <button type="submit" class="btn btn-dark">Login</button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+</div>
+
+   </div>
+
+
+</template>
+
+<script>
+export default{
+	name:'login',
+	data(){
+	 return{
+	 username:'',
+	 password:''
+
+	 }
+	},
+	methods:{
+	    login()
+	    {
+
+	    }
+	}
+}
+</script>
+
+
+<style scoped>
+h1{
+text-align:left;
+    padding:90px;
+    }
+
+<style>
