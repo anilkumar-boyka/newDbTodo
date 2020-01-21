@@ -1,9 +1,6 @@
 <template>
   <div class="hello">
-    <h1>Welcome</h1>
-    <hr>
-    <br>
-    <h2>Register to add items in your to do list</h2>
+    
   </div>
 </template>
 
