@@ -31,6 +31,15 @@ import { mapGetters } from "vuex";
 import firebase from "firebase";
 export default {
     name:'Todo',
+    computed: {
+    ...mapGetters({
+// map `this.user` to `this.$store.getters.user`
+      user: "user"
+    }),
+
+   
+  },
+    
     data()
     {   return{
            newItem:'',
@@ -39,41 +48,96 @@ export default {
                
         }     
             
-    },  
+    },
+   
 
-
-    computed: {
-    ...mapGetters({
-// map `this.user` to `this.$store.getters.user`
-      user: "user"
-    })
-  },         
            
      methods:{
+
+
+ getData() {
+              var playersRef = firebase.database().ref("todoItems/");
+
+    var item = [];
+
+     var userName = this.user.data.displayName;
+
+    playersRef.orderByChild("name").on("child_added", function(data) {
+      //console.log(data.val().name);
+      console.log(userName);
+      if(data.val().name == userName){
+      item.push({ title: data.val().title });
+      //item = data.val().name;
+    }
+    });
+
+    console.log(this.inputs);
+    //this.inputs = [];
+
+    item.forEach(element => {
+        
+      this.inputs.push({
+        title: element.title,
+        done: false
+      });
+    });
+
+
+
+
+this.newItem='';
+        },
+        
          time:function(){
              var d = (new Date()).toString().split(' ').splice(1,3).join(' ');
              return d;
          },
         add:function()
         {
-            this.inputs.push({
-                title:this.newItem,
-                done:false
-            });
-               this.newItem='';
+
+            var userName = this.user.data.displayName;
+            console.log("Hello" + this.user);
+
+               
            
                 alert("i am clicked..");
                 var fref = firebase.database().ref();
-                fref.child("todoItems").push(this.inputs);
+                fref.child("todoItems").push({
+                    title:this.newItem,
+         name: userName
+        
+      });
 
                 
 
+                  var playersRef = firebase.database().ref("todoItems/");
+
+    var item = [];
+
+    playersRef.orderByChild("name").on("child_added", function(data) {
+      //console.log(data.val().name);
+      console.log(userName);
+      if(data.val().name == userName){
+      item.push({ title: data.val().title });
+      //item = data.val().name;
+    }
+    });
+
+    console.log(this.inputs);
+    this.inputs = [];
+
+    item.forEach(element => {
+        
+      this.inputs.push({
+        title: element.title,
+        done: false
+      });
+    });
 
 
 
 
-
-
+this.newItem='';
 
             
 
