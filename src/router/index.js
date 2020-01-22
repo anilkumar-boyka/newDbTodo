@@ -5,11 +5,17 @@ import login from '@/components/login'
 import register from '@/components/register'
 import Dashboard from '@/components/Dashboard'
 import todo from '@/components/todo'
+import firebase from 'firebase'
 
 Vue.use(Router)
 
-export default new Router({
+const router=new Router({
   routes: [
+    {
+      path:'*',
+      riderect:'/'
+
+    },
     {
       path: '/',
       name: 'HelloWorld',
@@ -38,12 +44,22 @@ export default new Router({
     {
     	path: '/todo',
      name:'todo', 
-     component: todo
+     component: todo,
+     meta:{
+     	requiresAuth:true
+     }
 
     }
     
-    
-
-
-  ]
+    ]
 })
+   router.beforeEach((to, from, next) => {
+  const currentUser = firebase.auth().currentUser;
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+
+   if (requiresAuth && !currentUser ) next('login');
+  else if (!requiresAuth && currentUser) next('todo');
+  else next();
+});
+
+   export default router;

@@ -1,7 +1,7 @@
 <template>
  <div>
  <template v-if="user.loggedIn">
-            <h1>Welcome {{user.data.displayName}}</h1>
+            <h1>Welcome {{user.data.displayName}}{{user.uid}}</h1>
           </template>
      <h1 class="time">{{time()}}</h1>
      <h1>Keep Your Todo List Items Here</h1>
@@ -87,6 +87,24 @@ export default {
           this.inputs.splice(inputIndex,1);
 
         }
+    },
+
+    created(){
+      //  $this.http.get('https://login-66869.firebaseio.com/').then(function(data){
+      //   console.log(data);
+      // });
+      var ref = firebase.database().ref();
+
+ref.on("value", function(snapshot) {
+   console.log(snapshot.val());
+}, function (error) {
+   console.log("Error: " + error.code);
+});
+var titleRef = firebase.database().ref("todo/");
+
+    titleRef.orderByChild("title").on("child_added", function(data) {
+   console.log(data.val().title);
+});
     }
 
 

@@ -72,6 +72,7 @@
 
 <script>
 import firebase from "firebase";
+import { mapGetters } from "vuex";
 
 export default {
   data() {
@@ -84,6 +85,12 @@ export default {
       error: null
     };
   },
+  computed: {
+    ...mapGetters({
+// map `this.user` to `this.$store.getters.user`
+      user: "user"
+    })
+  },
   methods: {
     submit() {
       firebase
@@ -94,7 +101,10 @@ export default {
             .updateProfile({
               displayName: this.form.name
             })
-            .then(() => {});
+            .then(() => {alert("You have registered succesfully..");
+              this.$router.replace({ name:"todo" });
+
+          });
         })
         .catch(err => {
           this.error = err.message;

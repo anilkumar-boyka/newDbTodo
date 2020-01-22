@@ -4,7 +4,7 @@
 
       <router-link to="/" class="navbar-brand">Your To Do App</router-link>
       <button
-        class="navbar-toggler"
+        class="navbar-toggler" 
         type="button"
         data-toggle="collapse"
         data-target="#navbarSupportedContent"

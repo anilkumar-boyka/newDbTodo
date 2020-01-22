@@ -24,11 +24,32 @@ var firebaseConfig = {
 });
 
 
-/* eslint-disable no-new */
-new Vue({
+
+firebase.auth().onAuthStateChanged(user => {
+	
+  new Vue({
   el: '#app',
   router,
   store,
   components: { App },
   template: '<App/>'
 })
+
+
+});
+
+
+
+
+   // let app;
+
+// firebaseApp.auth().onAuthStateChanged(user => {
+//     if (!app) {
+//     app = new Vue({
+//       router,
+//       store,
+//       render: h => h(App)
+//     }).$mount("#app");
+//   }
+
+// });
