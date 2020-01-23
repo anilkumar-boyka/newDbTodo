@@ -96,7 +96,7 @@ export default {
         {
 
             var userName = this.user.data.displayName;
-            console.log("Hello" + this.user.data.displayName);
+            console.log("Hello" + this.user);
 
                
            
@@ -116,12 +116,10 @@ export default {
 
     playersRef.orderByChild("name").on("child_added", function(data) {
       //console.log(data.val().name);
-      console.log("user nam is"+userName);
+      console.log(userName);
       if(data.val().name == userName){
       item.push({ title: data.val().title });
       //item = data.val().name;
-      console.log("items here are.."+item);
-
     }
     });
 
@@ -148,90 +146,9 @@ this.newItem='';
         },
 
         remove:function(input)
-
-        {   var  vm=this;  
-              console.log("iput id is..");
-              console.log(input);
-
-           //remove key
-           var playersRef = firebase.database().ref("todoItems/");
-
-              playersRef.orderByKey().on("child_added", function(data) {
-                 console.log(data.key);
-                 console.log("yoo key");
-
-                 
-              });
-              //all data
-                 
-                    playersRef.on("value", function(snapshot) {
-                        console.log("all data");
-                         
-                           console.log("before parsing...");
-                           console.log(snapshot.val());
-                            console.log("after parsing...");
-
-
-                        JSON.parse(JSON.stringify(snapshot.val()));
-                         console.log(snapshot.val());
-                         console.log("each title..");
-                         // console.log(todoItems);
-                        
-
-                      }, function (error) {
-                         console.log("Error: " + error.code);
-                      });
-           
-           //by name
-           // var playersRef = firebase.database().ref("todoItems/");
-
-           //      playersRef.orderByChild("key").on("child_added", function(data) {
-           //        console.log("child");
-           //         console.log(data.val().key);
-           //      });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          // console.log("single op is:"+input.title);
-          //deletion
-
-          // console.log(e.title);
-          // console.log(input);
-
-               var removeRef = firebase.database().ref("todoItems/");
-               removeRef.child('-LzGwRL1Eecb0mn8Nkyu').remove();
-
-    
-          
-
-          // const inputIndex=this.inputs.indexOf(input);
-          // this.inputs.splice(inputIndex,1);
+        { console.log("single op is:"+input);
+          const inputIndex=this.inputs.indexOf(input);
+          this.inputs.splice(inputIndex,1);
 
         }
     },
@@ -241,58 +158,22 @@ this.newItem='';
 
       //cahnges 23
 
-    mounted(){
-      var vm=this;
-       console.log("hello mounted......");
-       var userName = this.user.data.displayName;
-       console.log("Hello" + this.user.data.displayName);
-
-       
-
-
+//     created(){
       
-      var ref = firebase.database().ref();
+//       var ref = firebase.database().ref();
 
-ref.on("value", function(snapshot) {
-  console.log("yooo");
-   console.log(snapshot.val());
-}, function (error) {
-   console.log("Error: " + error.code);
-});
-var titleRef = firebase.database().ref("todoItems/");
+// ref.on("value", function(snapshot) {
+//    console.log(snapshot.val());
+// }, function (error) {
+//    console.log("Error: " + error.code);
+// });
+// var titleRef = firebase.database().ref("todo/");
 
-    titleRef.orderByChild("title").on("child_added", function(data) {
+//     titleRef.orderByChild("title").on("child_added", function(data) {
+//    console.log("created data is"+data.val().title);
+// });
+//     }
 
-      if(data.val().name == userName){
-        console.log(" inside if data is"+data.val().title);
-
-       console.log("match found");
-      
-        var oldItems=[data.val().title];
-        console.log("fetched items from db are:"+oldItems);
-        console.log("input "+vm.inputs);
-
-        oldItems.forEach(element=>{
-           console.log("element is"+element);
-
-           vm.inputs.push({title:element,done:false});
-      });
-      
-
-
-      }
-   console.log(" created data is"+data.val().title +"and" +data.val().name);
-  
-  console.log("hellllo");
-
-   
-
-
-});
-    }
-
-
-   
 
 }
     
@@ -302,8 +183,6 @@ var titleRef = firebase.database().ref("todoItems/");
 
 .done{
     text-decoration: line-through;
-    background-color:#f1f1f6;
-
 }
 
 .item{
@@ -360,7 +239,6 @@ var titleRef = firebase.database().ref("todoItems/");
      width:275px;
      font-family: 'Oxygen', sans-serif;
      font-size: x-large;
-
  }
 
  input[type="checkbox"]
@@ -386,11 +264,7 @@ opacity:0.9;
           color:grey;
           text-align: left;
            opacity:0.6;
-          }
-
-        .colorChange{
-          color:light-blue;
-        }
+          
          
-      
+      }
 </style>
