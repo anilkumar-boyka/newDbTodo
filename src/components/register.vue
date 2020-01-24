@@ -102,7 +102,9 @@ export default {
               displayName: this.form.name
             })
             .then(() => {alert("You have registered succesfully..");
+              location.reload();
               this.$router.replace({ name:"todo" });
+
 
           });
         })

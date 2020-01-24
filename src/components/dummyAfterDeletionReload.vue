@@ -149,7 +149,10 @@ this.newItem='';
 
         remove:function(input)
 
-        {   var  vm=this;  
+        {  
+
+         
+            var  vm=this;  
               console.log("iput id is..");
               console.log(input);
               console.log(input.title);
