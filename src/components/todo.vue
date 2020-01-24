@@ -1,29 +1,28 @@
 <template>
  <div>
- <template v-if="user.loggedIn">
-            <h1>Welcome {{user.data.displayName}}{{user.uid}}</h1>
-          </template>
+     <template v-if="user.loggedIn">
+       <h1>Welcome {{user.data.displayName}}{{user.uid}}</h1>
+     </template>
      <h1 class="time">{{time()}}</h1>
      <h1>Keep Your Todo List Items Here</h1>
-<div class="box">
+     <div class="box">
     
     
-<form class="item" @submit.prevent="add">
-    
-    <input class="text"v-model="newItem" required  placeholder="Add Item ">
-    <button  class="add" type="submit.prevent">+</button><br>
-  </form>
-  <div>
-  <ul>
-      <li class="item"v-for="input in inputs">
-          <input type="checkbox" v-model="input.done">
-          <p class="showitem" v-bind:class={done:input.done}>{{input.title}}</p>
-          <button class="remove"v-on:click="remove(input)"><i class="fas fa-trash-alt fa-2x"></i></button>
-      </li>
-  </ul>
+       <form class="item" @submit.prevent="add">
+        <input class="text"v-model="newItem" required  placeholder="Add Item ">
+        <button  class="add" type="submit.prevent">+</button><br>
+       </form>
+       <div>
+         <ul>
+          <li class="item"v-for="input in inputs">
+              <input type="checkbox" v-model="input.done">
+              <p class="showitem" v-bind:class={done:input.done}>{{input.title}}</p>
+              <button class="remove"v-on:click="remove(input)"><i class="fas fa-trash-alt fa-2x"></i></button>
+          </li>
+         </ul>
+       </div>
+     </div>
   </div>
-</div>
- </div>
 </template>
 
 <script>
@@ -44,6 +43,7 @@ export default {
     {   return{
            newItem:'',
            inputs:[],
+           keyItems:[]
            
                
         }     
@@ -152,37 +152,86 @@ this.newItem='';
         {   var  vm=this;  
               console.log("iput id is..");
               console.log(input);
+              console.log(input.title);
 
            //remove key
            var playersRef = firebase.database().ref("todoItems/");
 
+           console.log("keys....");
+
               playersRef.orderByKey().on("child_added", function(data) {
                  console.log(data.key);
-                 console.log("yoo key");
+
+                 vm.keyItems.push(data.key);
+                 console.log("name according to key..");
+                 console.log(data.key.name);
+
+                 // console.log("key in this.keys are..."+vm.keyItems);
+                 
 
                  
               });
-              //all data
+              //remove logic starts here
+
+                playersRef.on("value", function(snapshot) {
+
+                      var length=Object.keys(snapshot.val()).length;
+
+                          console.log("length is "+length);
+                        for(var i=0;i<length;i++)
+
+                        {
+               if(input.title==Object.values(snapshot.val())[i].title)
+               {
+                    console.log("both are same....");
+
+                    var removeRef = firebase.database().ref("todoItems/");
+                     removeRef.child(Object.keys(snapshot.val())[i]).remove();
+                
+
+
+
+
+
+
+               }
+               else
+                {console.log("not same....")}
+            }
                  
-                    playersRef.on("value", function(snapshot) {
-                        console.log("all data");
+
+            });//remove logic ends here
+
+
+                // playersRef.on("value", function(snapshot) {
+                //         console.log("all data");
                          
-                           console.log("before parsing...");
-                           console.log(snapshot.val());
-                            console.log("after parsing...");
+                //            console.log("before parsing...");
+                //            console.log(snapshot);
+                          
+                //           var length=Object.keys(snapshot.val()).length;
+
+                //           // console.log("length is "+length);
+                           
+                //            // console.log(Object.values(snapshot.val())[6].title);
+
+                //            console.log("snapshot.name");
+                //            console.log(snapshot.val());
+                //         //     console.log("after parsing...");
 
 
-                        JSON.parse(JSON.stringify(snapshot.val()));
-                         console.log(snapshot.val());
-                         console.log("each title..");
-                         // console.log(todoItems);
+                //         // JSON.parse(JSON.stringify(snapshot.val()));
+                //         //  console.log(snapshot.val());
+                //         //  console.log("each title..");
+                //         //  // console.log(todoItems);
                         
 
-                      }, function (error) {
-                         console.log("Error: " + error.code);
-                      });
+                //       }, function (error) {
+                //          console.log("Error: " + error.code);
+                //       });
            
-           //by name
+     
+             //by name
            // var playersRef = firebase.database().ref("todoItems/");
 
            //      playersRef.orderByChild("key").on("child_added", function(data) {
@@ -191,28 +240,7 @@ this.newItem='';
            //      });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                 
 
 
 
@@ -225,13 +253,15 @@ this.newItem='';
           // console.log(input);
 
                var removeRef = firebase.database().ref("todoItems/");
-               removeRef.child('-LzGwRL1Eecb0mn8Nkyu').remove();
+               removeRef.child(1).remove();
+               console.log("removing");
+               console.log("removed")
 
     
           
 
-          // const inputIndex=this.inputs.indexOf(input);
-          // this.inputs.splice(inputIndex,1);
+          const inputIndex=this.inputs.indexOf(input);
+          this.inputs.splice(inputIndex,1);
 
         }
     },
@@ -239,57 +269,50 @@ this.newItem='';
       //   console.log(data);
       // });
 
-      //cahnges 23
+      
 
+    //loads dom initiall
     mounted(){
-      var vm=this;
-       console.log("hello mounted......");
-       var userName = this.user.data.displayName;
-       console.log("Hello" + this.user.data.displayName);
 
-       
+        var vm=this;
+        console.log("hello mounted......");
+        var userName = this.user.data.displayName;
+        console.log("Hello" + this.user.data.displayName);
+        var ref = firebase.database().ref();
 
+        ref.on("value", function(snapshot) {
+            console.log("yooo");
+            console.log(snapshot.val());
+        }, 
 
-      
-      var ref = firebase.database().ref();
+        function (error) {
+         console.log("Error: " + error.code);
+        });
 
-ref.on("value", function(snapshot) {
-  console.log("yooo");
-   console.log(snapshot.val());
-}, function (error) {
-   console.log("Error: " + error.code);
-});
-var titleRef = firebase.database().ref("todoItems/");
+        var titleRef = firebase.database().ref("todoItems/");
 
-    titleRef.orderByChild("title").on("child_added", function(data) {
+        titleRef.orderByChild("title").on("child_added", function(data) {
 
-      if(data.val().name == userName){
-        console.log(" inside if data is"+data.val().title);
-
-       console.log("match found");
-      
-        var oldItems=[data.val().title];
-        console.log("fetched items from db are:"+oldItems);
-        console.log("input "+vm.inputs);
-
-        oldItems.forEach(element=>{
-           console.log("element is"+element);
-
-           vm.inputs.push({title:element,done:false});
-      });
-      
-
-
-      }
-   console.log(" created data is"+data.val().title +"and" +data.val().name);
+          if(data.val().name == userName){
+             console.log(" inside if data is"+data.val().title);
+             console.log("match found");
+             var oldItems=[data.val().title];
+             console.log("fetched items from db are:"+oldItems);
+             console.log("input "+vm.inputs);
+             oldItems.forEach(element=>{
+              console.log("element is"+element);
+              vm.inputs.push({title:element,done:false});
+        });
+    }
+       console.log(" created data is"+data.val().title +"and" +data.val().name);
   
-  console.log("hellllo");
+  
 
    
 
 
-});
-    }
+       });
+      }
 
 
    
