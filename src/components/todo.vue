@@ -1,7 +1,7 @@
 <template>
  <div>
      <template v-if="user.loggedIn">
-       <h1>Welcome {{user.data.displayName}}{{user.uid}}</h1>
+       <h1>Welcome {{user.data.displayName}}</h1>
      </template>
      <h1 class="time">{{time()}}</h1>
      <h1>Keep Your Todo List Items Here</h1>
@@ -15,7 +15,7 @@
        <div>
          <ul>
           <li class="item"v-for="input in inputs">
-              <input type="checkbox" v-model="input.done">
+              <input type="checkbox" v-model="input.done" v-on:click="checkbox(input)">
               <p class="showitem" v-bind:class={done:input.done}>{{input.title}}</p>
               <button class="remove"v-on:click="remove(input)"><i class="fas fa-trash-alt fa-2x"></i></button>
           </li>
@@ -71,7 +71,7 @@ export default {
 //     }
 //     });
 
-//     console.log(this.inputs);
+//     console.log(this.inputs); 
 //     //this.inputs = [];
 
 //     item.forEach(element => {
@@ -92,6 +92,48 @@ export default {
              var d = (new Date()).toString().split(' ').splice(1,3).join(' ');
              return d;
          },
+         checkbox:function(input)
+         {
+            console.log("check box input is...."+input);
+            console.log(input);
+            console.log(!input.done);
+            var playersRef = firebase.database().ref("todoItems/");
+
+
+
+            playersRef.on("value", function(snapshot) {
+
+                      var length=Object.keys(snapshot.val()).length;
+
+                      console.log("inside checkBox....");
+                      console.log(Object.keys(snapshot.val()));
+
+                        console.log("length is "+length);
+                        // for(var i=0;i<length;i++)
+                        // // {
+                          var db = firebase.database();
+                          db.ref("todoItems/-LzWMOJWTJ6w8YJseK4G/done").set(!input.done);
+                        // }
+
+            });
+
+            // var db = firebase.database();
+            // db.ref("todoItems/-LzWDdoDXZ3UzfpdBr7T/done").set(!input.done);
+ 
+               
+
+
+
+
+
+
+
+
+
+
+
+
+         },
         add:function()
         {
 
@@ -104,7 +146,8 @@ export default {
                 var fref = firebase.database().ref();
                 fref.child("todoItems").push({
                   title:this.newItem,
-                  name: userName
+                  name: userName,
+                  done:false
         
       });
 
@@ -116,16 +159,16 @@ export default {
 
     playersRef.orderByChild("name").on("child_added", function(data) {
       //console.log(data.val().name);
-      console.log("user nam is"+userName);
+      console.log("user name is"+userName);
       if(data.val().name == userName){
-      item.push({ title: data.val().title });
+      item.push({ title: data.val().title,done:false });
       //item = data.val().name;
       console.log("items here are.."+item);
 
     }
     });
 
-    console.log("input is"+this.inputs);
+    
     this.inputs = [];
 
     item.forEach(element => {
@@ -135,11 +178,15 @@ export default {
         done: false
       });
     });
+      
+      this.inputs.forEach(element=>
+      {console.log("inputttttsss .."+element.done);
+        });
+
+    
 
 
-
-
-this.newItem='';
+ this.newItem='';
 
             
 
@@ -177,7 +224,7 @@ this.newItem='';
 
                       var length=Object.keys(snapshot.val()).length;
 
-                          console.log("length is "+length);
+                        console.log("length is "+length);
                         for(var i=0;i<length;i++)
 
                         {
@@ -312,7 +359,7 @@ this.newItem='';
 
           const inputIndex=this.inputs.indexOf(input);
           this.inputs.splice(inputIndex,1);
-          location.reload();
+          // location.reload();
 
         }
 
@@ -348,12 +395,14 @@ this.newItem='';
           if(data.val().name == userName){
              console.log(" inside if data is"+data.val().title);
              console.log("match found");
-             var oldItems=[data.val().title];
+             var oldItems=[{title:data.val().title,done:data.val().done}];
+             
              console.log("fetched items from db are:"+oldItems);
              console.log("input "+vm.inputs);
              oldItems.forEach(element=>{
-              console.log("element is"+element);
-              vm.inputs.push({title:element,done:false});
+              console.log("element is"+element.title);
+              console.log("done is is.."+element.done);
+              vm.inputs.push({title:element.title,done:element.done});
         });
     }
        console.log(" created data is"+data.val().title +"and" +data.val().name);
