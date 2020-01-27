@@ -214,9 +214,11 @@ export default {
             console.log("Your input is:"+this.inputs);
 
              location.reload();
-             
 
-               
+                
+
+
+              
         },
 
         remove:function(input)
@@ -438,7 +440,7 @@ export default {
 
       },
 
-      mounted:function(){
+      mounted(){
         this.start();
 
       }
