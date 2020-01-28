@@ -18,7 +18,7 @@
         <ul class="navbar-nav mr-auto"></ul>
         <ul class="navbar-nav ml-auto">
           <template v-if="user.loggedIn">
-            <div class="nav-item">{{user.data.displayName}}</div>
+            <div class="nav-item"><span class="name">{{user.data.displayName}}</span></div>
             <li class="nav-item">
               <a class="nav-link" @click.prevent="signOut">Sign out</a>
             </li>
@@ -60,3 +60,8 @@ export default {
   }
 };
 </script>
+<style>
+.name{
+  margin: 9px ;
+}
+</style>

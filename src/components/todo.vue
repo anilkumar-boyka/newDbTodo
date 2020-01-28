@@ -17,7 +17,12 @@
          <ul>
           <li class="item"v-for="input in inputs">
               <input type="checkbox" v-model="input.done" v-on:click="checkbox(input)">
-              <p class="showitem" v-bind:class={done:input.done}>{{input.title}}</p>
+              <p v-on:click="chooseColor(input,'green')"><i class="fas fa-circle green"></i></p>
+
+              <p v-on:click="chooseColor(input,'blue')"><i class="fas fa-circle blue"></i></p>
+
+              <p v-on:click="chooseColor(input,'pink')"><i class="fas fa-circle pink"></i> </p>
+              <span class="showitem" v-bind:class={done:input.done,greenBg:input.greenBg,pinkBg:input.pinkBg,blueBg:input.blueBg}>{{input.title}}</span>
               <button class="remove"v-on:click="remove(input)"><i class="fas fa-trash-alt fa-2x"></i></button>
           </li>
          </ul>
@@ -44,7 +49,8 @@ export default {
     {   return{
            newItem:'',
            inputs:[],
-           keyItems:[]
+           
+           
            
                
         }     
@@ -93,6 +99,42 @@ export default {
              var d = (new Date()).toString().split(' ').splice(1,3).join(' ');
              return d;
          },
+         choose:function(){
+            alert("hello");
+         },
+
+         chooseColor:function(input,color)
+         {
+          console.log("hello color");
+          console.log("color is"+color);
+          console.log(input);
+          console.log('input blue');
+          console.log(input.blueBg);
+          
+          console.log('input green');
+          console.log(input.greenBg);
+          console.log('input pink');
+          console.log(input.pinkBg);
+          if(color=='green')
+          {
+
+              console.log("both are same");
+
+              input.greenBg='true';
+
+
+          }
+          else if(color=='blue')
+          {
+            console.log("color selected is"+color);
+            input.blueBg='true';
+          }
+          else if(color=='pink'){
+            console.log("color selected is"+color);
+            input.pinkBg='true';
+          }
+
+         },
 
          checkbox:function(input)
          {
@@ -115,8 +157,8 @@ export default {
 
                           console.log("inside name and id is...");
                           console.log(Object.keys(snapshot.val())[2]);
-                          console.log(Object.values(snapshot.val())[2].name);
-                          console.log(Object.values(snapshot.val())[2].title);
+                          // console.log(Object.values(snapshot.val())[2].name);
+                          // console.log(Object.values(snapshot.val())[2].title);
                           console.log(input.title);
 
                       console.log("inside checkBox....");
@@ -168,7 +210,11 @@ export default {
                 fref.child("todoItems").push({
                   title:this.newItem,
                   name: userName,
-                  done:false
+                  done:false,
+                  greenBg:false,
+                  blueBg:false,
+
+                  pinkBg:false
         
       });
 
@@ -182,7 +228,9 @@ export default {
       //console.log(data.val().name);
       console.log("user name is"+userName);
       if(data.val().name == userName){
-      item.push({ title: data.val().title,done:false });
+
+      item.push({ title: data.val().title,done:data.val().done,greenBg:data.val().greenBg,blueBg:data.val().blueBg,pinkBg:data.val().pinkBg
+       });
       //item = data.val().name;
       console.log("items here are.."+item);
 
@@ -196,13 +244,18 @@ export default {
         
       this.inputs.push({
         title: element.title,
-        done: false
+        done: element.done,
+        greenBg:element.greenBg,
+        blueBg:element.blueBg,
+
+        pinkBg:element.pinkBg
       });
     });
       
-      this.inputs.forEach(element=>
-      {console.log("inputttttsss .."+element.done);
-        });
+      // console.log("green bg values");
+      // this.inputs.forEach(element=>
+      // {console.log("inputttttsss .."+element.greenBg);
+      //   });
 
     
 
@@ -213,7 +266,7 @@ export default {
 
             console.log("Your input is:"+this.inputs);
 
-             location.reload();
+             // location.reload();
              
 
                
@@ -416,14 +469,17 @@ export default {
           if(data.val().name == userName){
              console.log(" inside if data is"+data.val().title);
              console.log("match found");
-             var oldItems=[{title:data.val().title,done:data.val().done}];
+             var oldItems=[{title:data.val().title,done:data.val().done,greenBg:data.val().greenBg,blueBg:data.val().blueBg,pinkBg:data.val().pinkBg}];
              
              console.log("fetched items from db are:"+oldItems);
              console.log("input "+vm.inputs);
              oldItems.forEach(element=>{
               console.log("element is"+element.title);
               console.log("done is is.."+element.done);
-              vm.inputs.push({title:element.title,done:element.done});
+              vm.inputs.push({title:element.title,done:element.done,greenBg:element.greenBg,
+        blueBg:element.blueBg,
+
+        pinkBg:element.pinkBg});
         });
     }
        console.log(" created data is"+data.val().title +"and" +data.val().name);
@@ -464,6 +520,28 @@ export default {
     border-bottom: 1px solid #f1f1f1;
     display: flex;
     font-family: 'Oxygen', sans-serif;
+}
+.green{
+  color:#eef9bf;
+
+ }
+ .greenBg{
+  background-color:#eef9bf;
+ }
+.blue{
+  color:#b9cced;
+  
+}
+.blueBg{
+  background-color:#b9cced;
+}
+.pink{
+  color:#ffbaba;
+
+}
+.pinkBg{
+  background-color:#ffbaba;
+
 }
 
 ::placeholder
@@ -527,7 +605,7 @@ padding:30px;
 opacity:0.9;
 }
  .remove{
-     margin-left: 350px;
+     margin-left: 380px;
      position: absolute;
      border:none;
      background-color:transparent;
