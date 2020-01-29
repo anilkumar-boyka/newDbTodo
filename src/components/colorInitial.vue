@@ -137,18 +137,16 @@ export default {
 
 
                         console.log("length is "+length);
-                       //  for(var i=0;i<length;i++)
-                       //  {
-                       //    if(input.title==Object.values(snapshot.val())[i].title){
-                       //    var db = firebase.database();
-                       //    db.ref("todoItems/"+Object.keys(snapshot.val())[i]+"/greenBg/").set(input.greenBg,input.blueBg);
-
-                       //    break;
+                        for(var i=0;i<length;i++)
+                        {
+                          if(input.title==Object.values(snapshot.val())[i].title){
+                          var db = firebase.database();
+                          db.ref("todoItems/".set({Object.keys(snapshot.val())[i]):                            greenBg:input.greenBg,blueBg:input.blueBg,pinkBg:input.pinkBg});
+                          
+                          break;
                          
-                       //    }                          
-                       // }
-                       var db = firebase.database();
-                       db.ref("todoItems/-LzlNSYqRLcS0mwsClsV").update({blueBg:!input.greenBg ,pinkBg:!input.greenBg});
+                          }                          
+                       }
 
             });
 
