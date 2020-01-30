@@ -1,5 +1,9 @@
 <template>
   <div class="hello">
+    <div class="mainContent">
+
+      Keep list of items
+    </div>
     
   </div>
 </template>
@@ -31,4 +35,10 @@ li {
 a {
   color: #42b983;
 }
+.mainContent{
+  height:240px;
+
+  // background-color:green;
+}
 </style>
+

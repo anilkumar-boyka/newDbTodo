@@ -1,8 +1,12 @@
 <template>
+
   <nav class="navbar navbar-expand-md navbar-light navbar-laravel bg-light">
     <div class="container">
 
-      <router-link to="/" class="navbar-brand">Your To Do App</router-link>
+
+      <router-link to="/" class="navbar-brand top">Your To Do App
+
+      </router-link>
       <button
         class="navbar-toggler" 
         type="button"
@@ -15,10 +19,10 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto"></ul>
+        <!-- <ul class="navbar-nav mr-auto"></ul> -->
         <ul class="navbar-nav ml-auto">
           <template v-if="user.loggedIn">
-            <div class="nav-item"><span class="name">{{user.data.displayName}}</span></div>
+            <div class="nav-item name">{{user.data.displayName}}</div>
             <li class="nav-item">
               <a class="nav-link" @click.prevent="signOut">Sign out</a>
             </li>
@@ -55,6 +59,7 @@ export default {
           this.$router.replace({
             name: "home"
           });
+          location.reload();
         });
     }
   }
@@ -62,6 +67,10 @@ export default {
 </script>
 <style>
 .name{
-  margin: 9px ;
+  margin-top: 9px;
+  padding-right: 20px;
+}
+.top:hover, .top:active {
+  {font-size: 150%;}
 }
 </style>
