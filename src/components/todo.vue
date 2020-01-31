@@ -1,10 +1,10 @@
 <template>
- <div>
+ <div class="main">
      <template v-if="user.loggedIn"><h1 class="time">{{time()}}</h1>
-       <h1>Welcome {{user.data.displayName}}</h1>
+       <h1><b-badge>Welcome {{user.data.displayName}}</b-badge></h1>
      </template>
      
-     <h1>Keep Your Todo List Items Here</h1>
+     <h2><b-badge>Keep Your Todo List Items Here</b-badge></h2>
      <div class="box">
     
     
@@ -686,7 +686,7 @@ export default {
 
  .box{
      max-width: 500px;
-     margin:50px auto;
+     margin:30px auto;
      background-color: white;
      border-radius: 5px;
      box-shadow:7px 17px 35px -5px rgba(0,0,0,0.3);
@@ -745,6 +745,11 @@ opacity:0.9;
         .colorChange{
           color:light-blue;
         }
-         
+        .main{
+          // background-color:#dab8f3;
+                  }
+         template{
+          background-color:black;
+         }
       
 </style>

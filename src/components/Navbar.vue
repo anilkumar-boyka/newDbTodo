@@ -4,7 +4,8 @@
     <div class="container">
 
 
-      <router-link to="/" class="navbar-brand top">Your To Do App
+      <router-link to="/" class="navbar-brand top"><b-badge variant="dark">YOUR TO DO APP</b-badge> 
+        <!-- <i class="fas fa-list"></i> -->
 
       </router-link>
       <button
@@ -22,17 +23,17 @@
         <!-- <ul class="navbar-nav mr-auto"></ul> -->
         <ul class="navbar-nav ml-auto">
           <template v-if="user.loggedIn">
-            <div class="nav-item name">{{user.data.displayName}}</div>
+            <div class="nav-item name"><i class="fas fa-user"></i> {{user.data.displayName}}</div>
             <li class="nav-item">
-              <a class="nav-link" @click.prevent="signOut">Sign out</a>
+              <a class="nav-link" @click.prevent="signOut">Sign Out <i class="fas fa-sign-out-alt"></i></a>
             </li>
           </template>
           <template v-else>
             <li class="nav-item">
-              <router-link to="login" class="nav-link">Login</router-link>
+              <router-link to="login" class="nav-link"> <b-badge variant="secondary">Login</b-badge></router-link>
             </li>
             <li class="nav-item">
-              <router-link to="register" class="nav-link">Register</router-link>
+              <router-link to="register" class="nav-link"><b-badge variant="secondary">Register</b-badge></router-link>
             </li>
           </template>
         </ul>

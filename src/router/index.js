@@ -1,11 +1,16 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import BootstrapVue from "bootstrap-vue"
+import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap-vue/dist/bootstrap-vue.css"
 import HelloWorld from '@/components/HelloWorld'
 import login from '@/components/login'
 import register from '@/components/register'
 import Dashboard from '@/components/Dashboard'
 import todo from '@/components/todo'
 import firebase from 'firebase'
+
+Vue.use(BootstrapVue)
 
 Vue.use(Router)
 

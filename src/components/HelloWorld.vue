@@ -1,8 +1,11 @@
 <template>
   <div class="hello">
     <div class="mainContent">
+      <!-- Keep list of items -->
+     
+ <!-- <img src="../assets/eg.jpg"> -->
+ <img class="eg"src="../assets/eg.jpg"></div>
 
-      Keep list of items
     </div>
     
   </div>
@@ -39,6 +42,10 @@ a {
   height:240px;
 
   // background-color:green;
+}
+.eg{
+   align:left;
+   padding-right:1000px;
 }
 </style>
 

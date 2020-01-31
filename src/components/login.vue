@@ -3,7 +3,7 @@
     <div class="row justify-content-center">
       <div class="col-md-8">
         <div class="card">
-          <div class="card-header">Login</div>
+          <div class="card-header logHeading">Login</div>
           <div class="card-body">
             <div v-if="error" class="alert alert-danger">{{error}}</div>
             <form action="#" @submit.prevent="submit">
@@ -87,4 +87,9 @@ export default {
   /*.login{
     margin-bottom:20px;
   }*/
+  .logHeading{
+
+  font-family: 'Pridi', serif;
+  font-size: 15px;
+}
 </style>

@@ -1,9 +1,9 @@
 <template>
-  <div class="container register">
+  <div class="container register reg">
     <div class="row justify-content-center">
       <div class="col-md-8">
         <div class="card">
-          <div class="card-header">Register</div>
+          <div class="card-header regHeading">Register</div>
           <div class="card-body">
             <div v-if="error" class="alert alert-danger">{{error}}</div>
             <form action="#" @submit.prevent="submit">
@@ -118,5 +118,13 @@ export default {
 <style scoped>
 .register{
   margin-bottom:200px;
+}
+.reg{
+  /*background-color: black;*/
+}
+.regHeading{
+
+  font-family: 'Pridi', serif;
+  font-size: 15px;
 }
 </style>
