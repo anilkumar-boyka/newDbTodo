@@ -4,6 +4,7 @@
 
     
   <div id="app">
+    <chart></chart>
     
       <navbar></navbar>
 
@@ -35,12 +36,14 @@
 <script>
 import login from './components/login';
 import navbar from './components/Navbar';
+import chart from './components/Chart';
 
 export default {
   name: 'App',
   components:{
      navbar,
-    login
+    login,
+    chart
   }
 }
 </script>
