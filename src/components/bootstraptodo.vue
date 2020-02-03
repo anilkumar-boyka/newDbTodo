@@ -1,13 +1,11 @@
 <template>
- <div>
+ <div class="main">
      <template v-if="user.loggedIn"><h1 class="time">{{time()}}</h1>
        <h1><b-badge>Welcome {{user.data.displayName}}</b-badge></h1>
      </template>
      
      <h2><b-badge>Keep Your Todo List Items Here</b-badge></h2>
-     <div class="mainDiv">
-     <b-card>
-     <!-- <div class="box"> -->
+     <div class="box">
     
     
        <form class="item" @submit.prevent="add">
@@ -19,17 +17,17 @@
          <ul>
           <li class="item"v-for="input in inputs">
               <input type="checkbox" v-model="input.done" v-on:click="checkbox(input)">
-              <p class="color" v-on:click="chooseColor(input,'green')"><i class="fas  fa-circle fa-0.2x green"></i></p>
+              <p  v-on:click="chooseColor(input,'green')"><i class="fas  fa-circle fa-0.2x green"></i></p>
 
-              <p class="color"v-on:click="chooseColor(input,'blue')"><i class="fas fa-circle blue"></i></p>
+              <p v-on:click="chooseColor(input,'blue')"><i class="fas fa-circle blue"></i></p>
 
-              <p class="color"v-on:click="chooseColor(input,'pink')"><i class="fas fa-circle pink"></i></p>
+              <p v-on:click="chooseColor(input,'pink')"><i class="fas fa-circle pink"></i></p>
               <span class="showitem" v-bind:class={done:input.done,greenBg:input.greenBg,blueBg:input.blueBg,pinkBg:input.pinkBg}>{{input.title}}</span>
               <button class="remove"v-on:click="remove(input)"><i class="fas fa-trash-alt fa-2x"></i></button>
           </li>
          </ul>
-       <!-- </div> -->
-     </div></b-card></div>
+       </div>
+     </div>
   </div>
 </template>
 
@@ -647,12 +645,6 @@ export default {
     display: flex;
     font-family: 'Oxygen', sans-serif;
 }
-.mainDiv{
-  
-  max-width:600px;
-  margin:30px auto;
-  box-shadow:7px 17px 35px -5px rgba(0,0,0,0.3);
-}
 .green{
   color:#eef9bf;
 
@@ -686,15 +678,19 @@ export default {
      height: 60px;
      top:10px;
      font-size:30px;
-     
+     width:360px;
      border:none;
      outline: none;
      box-shadow:inset 0 -3px 0 0 #A683E3;
- }.color{
-  margin:3px;
  }
 
-  
+ .box{
+     max-width: 500px;
+     margin:30px auto;
+     background-color: white;
+     border-radius: 5px;
+     box-shadow:7px 17px 35px -5px rgba(0,0,0,0.3);
+ } 
  .add{
      min-height: 50px;
      width:50px;
@@ -729,12 +725,12 @@ export default {
 h1{
 color:#A683E3;
 text-align: center;
-padding:20px;
+padding:30px;
 opacity:0.9;
 }
  .remove{
-     margin-left: 30px;
-     
+     margin-left: 380px;
+     position: absolute;
      border:none;
      background-color:transparent;
      opacity:0.5;
@@ -749,9 +745,10 @@ opacity:0.9;
         .colorChange{
           color:light-blue;
         }
-        
-         
-         template {
+        .main{
+          // background-color:#dab8f3;
+                  }
+         template{
           background-color:black;
          }
       

@@ -1,6 +1,5 @@
 <template>
-  <div>
-  <!-- <div class="container register reg">
+  <div class="container register reg">
     <div class="row justify-content-center">
       <div class="col-md-8">
         <div class="card">
@@ -59,91 +58,14 @@
 
               <div class="form-group row mb-0">
                 <div class="col-md-8 offset-md-4">
-                  <!-- <button type="submit" class="btn btn-primary">Register</button> -->
-                  <!-- <b-button type="submit" variant="primary">Register</b-button>
+                  <button type="submit" class="btn btn-primary">Register</button>
                 </div>
               </div>
             </form>
           </div>
         </div>
       </div>
-    </div>  -->
-
-    <b-card
-
-  header="Register"
-   
-   
-    style="max-width: 40rem;
-    margin:auto;"
-    class="mb-2"
-  >
-  <div v-if="error" class="alert alert-danger">{{error}}</div>
-
-  <form action="#" @submit.prevent="submit">
-<!-- name -->
-
- <div class="form-group row">
-                <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
-
-                <div class="col-md-6">
-                  <input
-                    id="name"
-                    type="name"
-                    class="form-control"
-                    name="name"
-                    value
-                    required
-                    autofocus
-                    v-model="form.name"
-                  />
-                </div>
-              </div>
-              <!-- name ends-->
-              <!--emaail starts -->
-               <div class="form-group row">
-                <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
-
-                <div class="col-md-6">
-                  <input
-                    id="email"
-                    type="email"
-                    class="form-control"
-                    name="email"
-                    value
-                    required
-                    autofocus
-                    v-model="form.email"
-                  />
-                </div>
-              </div>
-              <!-- email ends -->
-              <!-- password starts  -->
-              <div class="form-group row">
-                <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
-
-                <div class="col-md-6">
-                  <input
-                    id="password"
-                    type="password"
-                    class="form-control"
-                    name="password"
-                    required
-                    v-model="form.password"
-                  />
-                </div>
-              </div>
-              <!-- password ends here -->
-
-
-
-   
-
-    <b-button type="submit" variant="primary">Register</b-button>
-     </form>
-  </b-card>
-
-  </div>
+    </div>
   </div>
 </template>
 
