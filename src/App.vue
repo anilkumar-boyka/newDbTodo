@@ -1,10 +1,10 @@
 <template>
   <div class="appbody">
-    
-
+    <!-- <chart/> -->
+<visualization></visualization>
     
   <div id="app">
-    <chart></chart>
+    <!-- <chart></chart> -->
     
       <navbar></navbar>
 
@@ -36,14 +36,16 @@
 <script>
 import login from './components/login';
 import navbar from './components/Navbar';
-import chart from './components/Chart';
+
+// import Visualization from './components/visualization.vue';
 
 export default {
   name: 'App',
   components:{
      navbar,
     login,
-    chart
+    
+
   }
 }
 </script>

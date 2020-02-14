@@ -1,5 +1,9 @@
 <template>
  <div>
+   <template v-if="user.loggedIn">
+     <Visualization/>
+     
+   </template>
      <template v-if="user.loggedIn"><h1 class="time">{{time()}}</h1>
        <h1><b-badge>Welcome {{user.data.displayName}}</b-badge></h1>
      </template>
@@ -36,8 +40,16 @@
 <script>
 import { mapGetters } from "vuex";
 import firebase from "firebase";
+// import chart from './Chart';
+// import chart from './components/Chart';
+import Visualization from './visualization.vue';
 export default {
     name:'Todo',
+    components:{
+  
+    Visualization
+  },
+   
     computed: {
     ...mapGetters({
 // map `this.user` to `this.$store.getters.user`
@@ -240,7 +252,7 @@ export default {
 
                       console.log("inside checkBox....");
                       console.log(Object.keys(snapshot.val()));
-
+                      console.log();
 
 
                         console.log("length is "+length);
