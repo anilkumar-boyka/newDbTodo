@@ -1,7 +1,7 @@
 <template>
   <div class="appbody">
     <!-- <chart/> -->
-<visualization></visualization>
+<!-- <visualization></visualization> -->
     
   <div id="app">
     <!-- <chart></chart> -->

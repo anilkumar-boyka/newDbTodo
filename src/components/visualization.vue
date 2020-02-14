@@ -1,7 +1,9 @@
-<template>
-<div>
+<template v-if="user.loggedIn">
+
+<div class="myChart">
+  
               <chart :chart-data="datacollection"></chart>
-              <h6 v-on:click="dataAcess">click me</h6>
+              
               </div>
     </template>
     <script>
@@ -12,76 +14,143 @@
       components: {
         Chart
       },
+
+      computed: {
+            ...mapGetters({
+        
+              user: "user"
+            }),
+
+   
+  },
+    
       data() {
         return {
           
           datacollection: null,
-          x:55,
-          true:null
+          
+          true:null,
+          false:null
         };
       },
+     
       mounted() {
       
         this.fillData();
+
       },
       methods: {
-          dataAcess:function (){
+          dataAccess:function(){
+                 var vm=this;
+                 
             
-            var trueCount=0;
-            var falseCount=0;
-              alert('hello');
-              var todoRef = firebase.database().ref("todoItems/"); 
-              todoRef.on("value", function(snapshot) {
-                var length=Object.keys(snapshot.val()).length;
-                console.log("hey "+length);
-                console.log(Object.keys(snapshot.val()));
-                for(var i=0;i<length;i++)
-                        {
-                            console.log("done is.....");
-                            console.log("done values are"+Object.values(snapshot.val())[i].done);
-                            if(Object.values(snapshot.val())[i].done===true)
+                 var trueCount=0;
+                 var falseCount=0;
+                 var userName = this.user.data.displayName;
+                 
+                 var todoRef = firebase.database().ref("todoItems/"); 
+            todoRef.orderByChild("title").on("child_added", function(data) {
+                if(data.val().name == userName){
+                  // var todoRef = firebase.database().ref("todoItems/");
+                  console.log('m inside');
+                  console.log('trueCount value is'+trueCount);
+                  console.log('falseCount value is'+falseCount);
+               
+                
+                  todoRef.on("value", function(snapshot) {
+                        var length=Object.keys(snapshot.val()).length;
+                        
+                      for(var i=0;i<length;i++)
+                      {
+
+                            
+                            if(Object.values(snapshot.val())[i].done==true)
                             {
                                trueCount++;
                             }
                             // console.log('trueCount is'+trueCount);
-                            else if(Object.values(snapshot.val())[i].done===false)
+                            else if(Object.values(snapshot.val())[i].done==false)
                             {
                              falseCount++;
-                            }console.log('falseCount is'+falseCount);
-                            console.log('trueCount is'+trueCount);
+                            }
                         }
-              }
+                        console.log('trueCount value is'+trueCount);
+                        console.log('falseCount value is'+falseCount);
+                        // vm.true=trueCount;
+                        //  vm.false=falseCount;
+                  
+                  });
+                         vm.true=trueCount;
+                         vm.false=falseCount;
+                }
+
               
-              );this.true=trueCount;
-              console.log('trueCount final is'+this.true);
+          });
 
           },
-        fillData() {
-          this.dataAcess();
+        fillData() 
+         { var vm=this;
+          console.log('trueCount final is'+vm.true);
+          console.log('falseCount final is'+vm.false);
+          vm.dataAccess();
+          console.log('2nd time');
+          console.log('trueCount final is'+vm.true);
+          console.log('falseCount final is'+vm.false);
           
-          this.datacollection = {
+          vm.datacollection = {
             labels: [
-              "Number of Todo Items Completed(Checked)",
-              "Number of Todo Items NotCompleted(Unchecked) ",
+              " NotCompleted(Checked)",
+              " Completed(Unchecked) ",
               
               
             ],
             datasets: [
               {
-                label: "GitHub Commits",
+                label: 'Number of completed and not completed items yet',
                 backgroundColor: "#f87979",
-                data: [40,this.true]
+                data: [this.true,this.false],
+                 borderWidth: 5,
+                  backgroundColor: [
+                    'rgba(54,73,93,.5)', 
+                    'white',
+                  ],
+
+                     backgroundColor: [
+                      // 'rgba(191, 191, 191, 1)'
+                      'rgba(71, 183,132,.5)', // Green
+                    ],
+
+                  // borderColor: [
+                  //   '#36495d',
+                    
+                  // ]
               },
-            //   {
-            //     label: "Monthly incomes",
-            //     backgroundColor: "#A5CC82",
-            //     data: [205, 408, 188, 190]
-            //   }
+
+            
             ]
           };
+          // this.true=null;
+          // this.false=null;
+
         },
+    //     options:{
+    //       title: {
+    //   display: true,
+    //   text: 'Number of To do Items Completed(Checked) or Not completed(Unchecked)'
+    // },
+    //     }
+
+
       }
     };
     </script>
     <style>
+    .myChart{
+      max-width: 300px;
+      max-height: 300px;
+      text-align: center;
+      /*margin: 10px 0 20px 0;*/
+      /*position:relative;*/
+
+    }
     </style>

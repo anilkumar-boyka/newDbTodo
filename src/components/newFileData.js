@@ -9,17 +9,28 @@ export default {
     props: ['chartData', 'options'],
     data() {
         return {
-            options: { //Chart.js options
+            options1: { //Chart.js options
+                title: {
+                          display: true,
+                          text: 'Number of To do Items Completed(Checked) or Not completed(Unchecked)'
+                        },
                 scales: {
                     yAxes: [{
                         ticks: {
-                            beginAtZero: true
+                            beginAtZero: true,
+                            padding:25,
+
                         },
                         gridLines: {
                             display: true
                         }
                     }],
                     xAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            padding:25,
+                            
+                        },
                         gridLines: {
                             display: false
                         }
@@ -29,12 +40,14 @@ export default {
                     display: true
                 },
                 responsive: true,
-                maintainAspectRatio: false
+                lineTension:1,
+                maintainAspectRatio:false,
+                aspectRatio:2
             }
         }
     },
     mounted() {
-        this.renderChart(this.chartdata, this.options)
+        this.renderChart(this.chartdata, this.options1)
     }
 
 }

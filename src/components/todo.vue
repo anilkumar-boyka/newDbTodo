@@ -1,11 +1,19 @@
 <template>
  <div>
-   <!-- <template v-if="user.loggedIn">
-     <Visualization/>
+   <template v-if="user.loggedIn">
      
-   </template> -->
+     
+   </template>
      <template v-if="user.loggedIn"><h1 class="time">{{time()}}</h1>
-       <h1><b-badge>Welcome {{user.data.displayName}}</b-badge></h1>
+      <h1 class="name"><b-badge>Welcome {{user.data.displayName}}</b-badge></h1>
+      <!-- <div class="click" v-on:click="click">Click Here To Generate Chart Data</div> -->
+     <b-card class="my_card"><Visualization/>
+      
+         <b-card-body class="pie">
+        PIE CHART REPRESENTING NUMBER OF TODO ITEMS COMPLETED OR NOT COMPLETED YET.
+         </b-card-body>
+       </b-card>
+       
      </template>
      
      <h2><b-badge>Keep Your Todo List Items Here</b-badge></h2>
@@ -75,6 +83,10 @@ export default {
 
            
      methods:{
+      click:function()
+      {
+        this.$router.replace({ name:"chartData" });
+      },
 
 
 //  getData() {
@@ -85,15 +97,15 @@ export default {
 //      var userName = this.user.data.displayName;
 
 //     playersRef.orderByChild("name").on("child_added", function(data) {
-//       //console.log(data.val().name);
-//       console.log(userName);
+//       ////console.log(data.val().name);
+//       //console.log(userName);
 //       if(data.val().name == userName){
 //       item.push({ title: data.val().title });
 //       //item = data.val().name;
 //     }
 //     });
 
-//     console.log(this.inputs); 
+//     //console.log(this.inputs); 
 //     //this.inputs = [];
 
 //     item.forEach(element => {
@@ -120,18 +132,14 @@ export default {
 
          chooseColor:function(input,color)
          {
-          console.log("hello color");
-          console.log("color is"+color);
-          console.log(input);
+         
          
           
         
           if(color=='green')
           {
               input.greenBg='true';
-              // input.pinkBg='true';
-              console.log("final input data...");
-            console.log(input);
+              
            
             input.pinkBg=!input.greenBg;
             input.blueBg=!input.greenBg;
@@ -140,18 +148,13 @@ export default {
 
                       var length=Object.keys(snapshot.val()).length;
 
-                          console.log("inside name and id is...");
-                          console.log(Object.keys(snapshot.val())[2]);
-                          // console.log(Object.values(snapshot.val())[2].name);
-                          // console.log(Object.values(snapshot.val())[2].title);
-                          console.log(input.title);
+                         
 
-                      console.log("inside checkBox....");
-                      console.log(Object.keys(snapshot.val()));
+                     
 
 
 
-                        console.log("length is "+length);
+                        
                         for(var i=0;i<length;i++)
                         {
                           if(input.title==Object.values(snapshot.val())[i].title){
@@ -175,19 +178,16 @@ export default {
           }
           else if(color=='blue')
           {
-            console.log("pink bg was..");
-
-            console.log(input.pinkBg);
-            console.log('green bg was..');
-            console.log(input.greenBg);
             
-            console.log("color selected is"+color);
+
+            
+            
+            
             input.blueBg='true';
-            console.log("final input data...");
-            console.log(input);
+            
              // if(input.pinkBg=='true'||input.greenBg=='true')
              // {
-             //    console.log("inside blue if..");
+             //    //console.log("inside blue if..");
               input.pinkBg=!input.blueBg;
               input.greenBg=!input.blueBg;
 
@@ -196,18 +196,8 @@ export default {
 
                       var length=Object.keys(snapshot.val()).length;
 
-                          console.log("inside name and id is...");
-                          console.log(Object.keys(snapshot.val())[2]);
-                          // console.log(Object.values(snapshot.val())[2].name);
-                          // console.log(Object.values(snapshot.val())[2].title);
-                          console.log(input.title);
-
-                      console.log("inside checkBox....");
-                      console.log(Object.keys(snapshot.val()));
-
-
-
-                        console.log("length is "+length);
+                          
+                          
                         for(var i=0;i<length;i++)
                         {
                           if(input.title==Object.values(snapshot.val())[i].title){
@@ -228,15 +218,11 @@ export default {
           }
           else if(color=='pink'){
             
-            console.log("color selected is"+color);
+            
             input.pinkBg='true';
-            console.log('after click on pink..');
-          console.log(input.pinkBg);
-          console.log("final input data...");
-            console.log(input);
-            // if(input.greenBg=='true'||input.blueBg=='true')
-            // {
-            //   console.log("inside pink if..");
+            
+          
+            
               input.greenBg=!input.pinkBg;
               input.blueBg=!input.pinkBg;
             // }
@@ -245,18 +231,10 @@ export default {
 
                       var length=Object.keys(snapshot.val()).length;
 
-                          console.log("inside name and id is...");
-                          console.log(Object.keys(snapshot.val())[2]);
-                          // console.log(Object.values(snapshot.val())[2].name);
-                          // console.log(Object.values(snapshot.val())[2].title);
-                          console.log(input.title);
-
-                      console.log("inside checkBox....");
-                      console.log(Object.keys(snapshot.val()));
-                      console.log();
+                        
 
 
-                        console.log("length is "+length);
+                        
                         for(var i=0;i<length;i++)
                         {
                           if(input.title==Object.values(snapshot.val())[i].title){
@@ -278,14 +256,11 @@ export default {
          checkbox:function(input)
          {
              var currentUser=this.user.data.displayName;
-             console.log("currentUser is"+currentUser);
+             
              var cc;
 
 
-            console.log("check box input is....");
-            console.log(input.done);
-            console.log(input);
-            console.log(!input.done);
+            
             var todoRef = firebase.database().ref("todoItems/");
 
 
@@ -294,18 +269,13 @@ export default {
 
                       var length=Object.keys(snapshot.val()).length;
 
-                          console.log("inside name and id is...");
-                          console.log(Object.keys(snapshot.val())[2]);
-                          // console.log(Object.values(snapshot.val())[2].name);
-                          // console.log(Object.values(snapshot.val())[2].title);
-                          console.log(input.title);
+                          
 
-                      console.log("inside checkBox....");
-                      console.log(Object.keys(snapshot.val()));
+                      
 
 
 
-                        console.log("length is "+length);
+                        
                         for(var i=0;i<length;i++)
                         {
                           if(input.title==Object.values(snapshot.val())[i].title){
@@ -340,7 +310,7 @@ export default {
           
 
             var userName = this.user.data.displayName;
-            console.log("Hello" + this.user.data.displayName);
+            
 
                
            
@@ -364,15 +334,14 @@ export default {
     var item = [];
 
     playersRef.orderByChild("name").on("child_added", function(data) {
-      //console.log(data.val().name);
-      console.log("user name is"+userName);
+      ////console.log(data.val().name);
+     
       if(data.val().name == userName){
 
       item.push({ title: data.val().title,done:data.val().done,greenBg:data.val().greenBg,blueBg:data.val().blueBg,pinkBg:data.val().pinkBg
        });
-      //item = data.val().name;
-      console.log("items here are.."+item);
-
+      
+      
     }
     });
 
@@ -391,10 +360,7 @@ export default {
       });
     });
       
-      // console.log("green bg values");
-      // this.inputs.forEach(element=>
-      // {console.log("inputttttsss .."+element.greenBg);
-      //   });
+   
 
     
 
@@ -403,9 +369,8 @@ export default {
 
             
 
-            console.log("Your input is:"+this.inputs);
+            //console.log("Your input is:"+this.inputs);
 
-             // location.reload();
              
 
                
@@ -414,40 +379,22 @@ export default {
         remove:function(input)
 
         {   var  vm=this;  
-              console.log("input id is..");
-              console.log(input);
-              console.log(input.title);
-
-           //remove key
+             
            var playersRef = firebase.database().ref("todoItems/");
 
-           // console.log("keys....");
-
-           //    playersRef.orderByKey().on("child_added", function(data) {
-           //       console.log(data.key);
-
-           //       vm.keyItems.push(data.key);
-           //       console.log("name according to key..");
-           //       console.log(data.key.name);
-
-                 // console.log("key in this.keys are..."+vm.keyItems);
-                 
-
-                 
-              // });
-              //remove logic starts here
+         
 
                 playersRef.on("value", function(snapshot) {
 
                       var length=Object.keys(snapshot.val()).length;
 
-                        console.log("length is "+length);
+                        //console.log("length is "+length);
                         for(var i=0;i<length;i++)
 
                         {
                if(input.title==Object.values(snapshot.val())[i].title)
                {
-                    console.log("both are same....");
+                    
 
                     var removeRef = firebase.database().ref("todoItems/");
                      removeRef.child(Object.keys(snapshot.val())[i]).remove();
@@ -459,51 +406,12 @@ export default {
 
 
                }
-               else
-                {console.log("not same....");}
+               // else
+                // {//console.log("not same....");}
             }
                  
 
-            });//remove logic ends here
-
-
-           //      playersRef.on("value", function(snapshot) {
-           //              console.log("all data");
-                         
-           //                 console.log("before parsing...");
-           //                 console.log(snapshot);
-                          
-           //                var length=Object.keys(snapshot.val()).length;
-
-           //                console.log("length is "+length);
-                           
-           //                 // console.log(Object.values(snapshot.val())[6].title);
-
-           //                 console.log("snapshot.name");
-           //                 console.log(snapshot.val());
-           //              //     console.log("after parsing...");
-
-
-           //              // JSON.parse(JSON.stringify(snapshot.val()));
-           //              //  console.log(snapshot.val());
-           //              //  console.log("each title..");
-           //              //  // console.log(todoItems);
-                        
-
-           //            }, function (error) {
-           //               console.log("Error: " + error.code);
-           //            });
-           
-     
-           //   //by name
-           // // var playersRef = firebase.database().ref("todoItems/");
-
-           // //      playersRef.orderByChild("key").on("child_added", function(data) {
-           // //        console.log("child");
-           // //         console.log(data.val().key);
-           // //      });
-
-
+            });
                  
 
 
@@ -551,34 +459,16 @@ export default {
 
 
 
-
-
-
-
-
-
-
-
-
-          // console.log("single op is:"+input.title);
-          //deletion
-
-          // console.log(e.title);
-          // console.log(input);
-
                var removeRef = firebase.database().ref("todoItems/");
                removeRef.child(1).remove();
-               console.log("removing");
-               console.log("removed")
+               
 
     
           
 
           const inputIndex=this.inputs.indexOf(input);
           this.inputs.splice(inputIndex,1);
-            //           setTimeout(function () {
-            //     location.reload();
-            // }, 8000)
+            
 
           
 
@@ -586,19 +476,12 @@ export default {
         },
 
     
-         //  $this.http.get('https://login-66869.firebaseio.com/').then(function(data){
-      //   console.log(data);
-      // });
-
-      
-
-    //loads dom initiall
     start:function(){
 
         var vm=this;
-        console.log("hello mounted......");
+        
         var userName = this.user.data.displayName;
-        console.log("Hello" + this.user.data.displayName);
+        
       
 
         var titleRef = firebase.database().ref("todoItems/");
@@ -606,22 +489,22 @@ export default {
         titleRef.orderByChild("title").on("child_added", function(data) {
 
           if(data.val().name == userName){
-             console.log(" inside if data is"+data.val().title);
-             console.log("match found");
+             //console.log(" inside if data is"+data.val().title);
+             //console.log("match found");
              var oldItems=[{title:data.val().title,done:data.val().done,greenBg:data.val().greenBg,blueBg:data.val().blueBg,pinkBg:data.val().pinkBg}];
              
-             console.log("fetched items from db are:"+oldItems);
-             console.log("input "+vm.inputs);
+             //console.log("fetched items from db are:"+oldItems);
+             //console.log("input "+vm.inputs);
              oldItems.forEach(element=>{
-              console.log("element is"+element.title);
-              console.log("done is is.."+element.done);
+              //console.log("element is"+element.title);
+              //console.log("done is is.."+element.done);
               vm.inputs.push({title:element.title,done:element.done,greenBg:element.greenBg,
         blueBg:element.blueBg,
 
         pinkBg:element.pinkBg});
         });
     }
-       console.log(" created data is"+data.val().title +"and" +data.val().name);
+       //console.log(" created data is"+data.val().title +"and" +data.val().name);
   
         
 
@@ -646,7 +529,12 @@ export default {
 
 </script>
 <style scoped>
-
+.click{
+  text-align:right;
+  color:grey;
+  background-color:white;
+  font-size:19px;
+}
 .done{
     text-decoration: line-through;
     background-color:#f1f1f6;
@@ -733,6 +621,10 @@ export default {
      font-size: x-large;
 
  }
+ .my_card{
+  text-align:center;
+
+ }
 
  input[type="checkbox"]
  {
@@ -757,8 +649,11 @@ opacity:0.9;
           color:grey;
           text-align: left;
            opacity:0.6;
+           padding-bottom:8px;
           }
-
+      .name{
+        padding-top:8px;
+      }
         .colorChange{
           color:light-blue;
         }
@@ -766,6 +661,10 @@ opacity:0.9;
          
          template {
           background-color:black;
+         }
+         .pie{
+          font-family: 'Patua One', cursive;
+
          }
       
 </style>

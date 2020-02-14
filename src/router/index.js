@@ -48,8 +48,11 @@ const router=new Router({
     },
     {
       path:'/chartData',
-      name:'characterData',
-      component:visualization
+      name:'chartData',
+      component:visualization,
+      meta:{
+       requiresAuth:true
+     }
     },
 
     {
@@ -70,6 +73,7 @@ const router=new Router({
 
    if (requiresAuth && !currentUser ) next('login');
   else if (!requiresAuth && currentUser) next('todo');
+  
   else next();
 });
 
