@@ -8,6 +8,7 @@ import login from '@/components/login'
 import register from '@/components/register'
 import Dashboard from '@/components/Dashboard'
 import todo from '@/components/todo'
+import visualization from '@/components/visualization'
 import firebase from 'firebase'
 
 Vue.use(BootstrapVue)
@@ -44,6 +45,11 @@ const router=new Router({
     { path: '/user/:id',
      name:'todo', 
      component: todo
+    },
+    {
+      path:'/chartData',
+      name:'characterData',
+      component:visualization
     },
 
     {

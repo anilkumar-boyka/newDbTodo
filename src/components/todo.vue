@@ -1,14 +1,15 @@
 <template>
  <div>
-   <template v-if="user.loggedIn">
+   <!-- <template v-if="user.loggedIn">
      <Visualization/>
      
-   </template>
+   </template> -->
      <template v-if="user.loggedIn"><h1 class="time">{{time()}}</h1>
        <h1><b-badge>Welcome {{user.data.displayName}}</b-badge></h1>
      </template>
      
      <h2><b-badge>Keep Your Todo List Items Here</b-badge></h2>
+     
      <div class="mainDiv">
      <b-card>
      <!-- <div class="box"> -->
