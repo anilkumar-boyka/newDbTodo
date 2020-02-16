@@ -48,17 +48,29 @@
                  var falseCount=0;
                  var userName = this.user.data.displayName;
                  
-                 var todoRef = firebase.database().ref("todoItems/"); 
-            todoRef.orderByChild("title").on("child_added", function(data) {
+                 
+                 var todoRef = firebase.database().ref("todoItems/");
+                 todoRef.on("value", function(snapshot) {
+                   console.log("exp");
+                   console.log(Object.values(snapshot.val())[3].name);
+                   
+                 } );
+            todoRef.orderByChild("name").on("child_added", function(data) {
+              console.log('data.val().name');
+              console.log(data.val().name);
+              // console.log('name length');
+              // console.log(data.val().name[2]);
+              console.log(userName);
                 if(data.val().name == userName){
                   // var todoRef = firebase.database().ref("todoItems/");
-                  console.log('m inside');
+                  console.log(' inside');
                   console.log('trueCount value is'+trueCount);
                   console.log('falseCount value is'+falseCount);
                
                 
                   todoRef.on("value", function(snapshot) {
                         var length=Object.keys(snapshot.val()).length;
+                        console.log('main')
                         
                       for(var i=0;i<length;i++)
                       {
