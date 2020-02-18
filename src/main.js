@@ -7,15 +7,15 @@ import * as firebase from "firebase"
 import store from "./store";
 
 Vue.config.productionTip = false
-var firebaseConfig = {
-    apiKey: "AIzaSyBHHGKQi8BueK02a2YP6YXzfUAeHmwDY70",
-    authDomain: "login-66869.firebaseapp.com",
-    databaseURL: "https://login-66869.firebaseio.com",
-    projectId: "login-66869",
-    storageBucket: "login-66869.appspot.com",
-    messagingSenderId: "43451156736",
-    appId: "1:43451156736:web:c5c6aa13c48683f50f4be5",
-    measurementId: "G-8WY9PGCG9X"
+ var firebaseConfig = {
+    apiKey: "AIzaSyBM6GJVsiz7IsuKyzlI35mXxqVcSqKAhr8",
+    authDomain: "finaltodo-7f83f.firebaseapp.com",
+    databaseURL: "https://finaltodo-7f83f.firebaseio.com",
+    projectId: "finaltodo-7f83f",
+    storageBucket: "finaltodo-7f83f.appspot.com",
+    messagingSenderId: "347306262074",
+    appId: "1:347306262074:web:c3ff573d6e6b16ec1dff03",
+    measurementId: "G-C42NFXZNXW"
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
